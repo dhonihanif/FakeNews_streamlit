@@ -12,11 +12,11 @@ def model(csv):
     df = pd.read_csv(csv, encoding="latin-1")
     X = df.iloc[:, 1:-1].values
     y = df.iloc[:, -1].values
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.2, random_state=101)
 
     # Load model
     model = pickle.load(open("./fakenews/tree.sav", "rb"))
-    
+    model.fit(X_train, y_train)
     # evaluation
     y_pred = model.predict(X_test)
     training_score = accuracy_score(y_train, model.predict(X_train))
@@ -166,11 +166,11 @@ using Decision Trees. Decision Tree is an interesting model to study because
 The tree of the decision tree contains only ifs and else which we can understand easily because
 of this model as follows.\n
     The performance of the model Decision Tree is:
-    Training Score : {training_score}\n
-    Test Score : {test_score}\n
-    Precision Score : {precision}\n
-    Recall Score : {recall}\n
-    f1 Score : {f1_scores}\n
+    Training Score : {training_score * 100:.2f}\n
+    Test Score : {test_score * 100:.2f}\n
+    Precision Score : {precision * 100:.2f}\n
+    Recall Score : {recall * 100:.2f}\n
+    f1 Score : {f1_scores * 100:.2f}\n
     Then, the confusion matrix like below:
     """)
     st.image("./images/no11.png")
